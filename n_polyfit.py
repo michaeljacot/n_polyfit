@@ -17,28 +17,17 @@ has a sick function polyval that does that for you.
 import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
+import random 
 
-def getData(stock,domain,window):
-    
-    tick = yf.Ticker(stock)
-    data = tick.history(period = domain,interval = window)
-    closes = data.Close.tolist()
-    
-    return closes,data
+data = random.sample(range(10, 300), 100)
+
+time = np.arange(0,len(data))
 
 
-
-stock = "BTC-USD"
-domain = "2y"
-window = "1d"
-
-closes,data = getData(stock,domain,window)
-time = np.arange(0,len(closes))
-
-
-plt.plot(closes)
-plt.title(stock + " over the last " + domain + " using closes every " + window)
+plt.plot(data)
+plt.title("Raw")
 plt.show()
+
 
 
 
@@ -46,7 +35,7 @@ plt.show()
 #loop through each value for n and run polyfit with that value of n
 for i in range(1,25):
     
-    thisPoly = np.polyfit(time,closes,i)
+    thisPoly = np.polyfit(time,data,i)
     thisPoly = np.polyval(thisPoly,time)
     
     plt.plot(thisPoly)
